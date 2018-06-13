@@ -35,6 +35,13 @@ if acc_name == "main":
     jsontoken = get_json('C:/Users/maxla/PycharmProjects/kaibot/main_token.json')
     token = jsontoken.get("token")
     infochannel = "456293805453475872"
+    one_emote = ":onea:456319761312120877"
+    two_emote = ":twoa:456319761601527808"
+    three_emote = ":threea:456319761551196160"
+    four_emote = ":foura:456319761375035393"
+    five_emote = ":fivea:456319761601658890"
+    six_emote = ":sixa:456319761492738058"
+    seven_emote = ":sevena:456319761555521548"
 
 print("Token being used: {}".format(jsontoken.get("token")))
 print("Connecting...")
@@ -82,10 +89,6 @@ async def on_resumed():
 
 @client.event
 async def on_message(message):
-    #if message.author == client.user:
-     #   print("{}: The bot tried to reply to itself, but it was stopped".format(get_time()))
-      #  return
-
     server = message.server
 
     # Message author variables
@@ -114,17 +117,45 @@ async def on_message(message):
             await client.add_roles(user_name, realname_role)
             bot_message = await client.send_message(message.channel, "Success :tada:! Set name to `{}`".format(realname))
 
+        if message.content.upper().startswith(".SETLOCATION"):
+            embed = discord.Embed(title="\u200b")
+            embed.set_author(name="Location Options")
+            embed.add_field(name="U.S.A", value="React with '1'", inline=True)
+            embed.add_field(name="Canada", value="React with '2'", inline=True)
+            embed.add_field(name="South America", value="React with '3'", inline = True)
+            embed.add_field(name="Africa", value="React with '4'", inline=True)
+            embed.add_field(name="Europe", value="React with '5'", inline=True)
+            embed.add_field(name="Asia", value="React with '6'", inline=True)
+            embed.add_field(name="AU & Oceania", value="React with '7'", inline=True)
+            embed_message = await client.send_message(message.channel, embed=embed)
+            await client.add_reaction(embed_message, emoji=one_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=two_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=three_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=four_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=five_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=six_emote)
+            await asyncio.sleep(.1)
+            await client.add_reaction(embed_message, emoji=seven_emote)
+            global responseactive
+            responseactive = 1
 
-
-        await asyncio.sleep(10)
+        await asyncio.sleep(120)
         await client.delete_message(message)
-        await asyncio.sleep(.2)
         try:
+            await asyncio.sleep(.2)
             await client.delete_message(bot_message)
         except AttributeError:
             pass  # Bot didn't send a message
         except UnboundLocalError:
             pass  # Bot didn't send a message
+        except:
+            pass  # Bot didn't send a message
+
 
 
 client.run(token)
